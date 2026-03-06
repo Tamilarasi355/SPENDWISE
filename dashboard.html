@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpendWise - Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="app-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2 class="logo">SpendWise</h2>
+      <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-view="dashboard">
+        <span class="nav-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="#" class="nav-link" data-view="expenses">
+        <span class="nav-icon">💰</span>
+        Expenses
+      </a>
+      <a href="#" class="nav-link" data-view="budgets">
+        <span class="nav-icon">📈</span>
+        Budgets
+      </a>
+      <a href="#" class="nav-link" data-view="categories">
+        <span class="nav-icon">🏷️</span>
+        Categories
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button type="button" class="btn btn-outline btn-block" id="logout-btn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="main-header">
+      <h1 id="page-title">Dashboard</h1>
+    </header>
+
+    <div id="view-dashboard" class="view active">
+      <div class="dashboard-summary">
+        <div class="summary-card">
+          <span class="summary-label">Total Spent (This Month)</span>
+          <span class="summary-value" id="total-spent">$0</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Budget Used</span>
+          <span class="summary-value" id="budget-used">0%</span>
+        </div>
+      </div>
+      <section class="dashboard-section">
+        <h3>Spending by Category</h3>
+        <div id="category-chart" class="category-chart"></div>
+      </section>
+    </div>
+
+    <div id="view-expenses" class="view">
+      <div class="view-toolbar">
+        <button type="button" class="btn btn-primary" id="add-expense-btn">Add Expense</button>
+        <div class="filters">
+          <input type="date" id="expense-date-from" class="form-input">
+          <input type="date" id="expense-date-to" class="form-input">
+          <select id="expense-category-filter" class="form-input">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+      </div>
+      <div id="expenses-list" class="list-container"></div>
+      <div id="expense-form-modal" class="modal hidden">
+        <div class="modal-content">
+          <h3 id="expense-form-title">Add Expense</h3>
+          <form id="expense-form">
+            <input type="hidden" id="expense-id">
+            <div class="form-group">
+              <label for="expense-amount">Amount</label>
+              <input type="number" id="expense-amount" name="amount" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="expense-description">Description</label>
+              <input type="text" id="expense-description" name="description" placeholder="What was it for?">
+            </div>
+            <div class="form-group">
+              <label for="expense-category">Category</label>
+              <select id="expense-category" name="category_id" required></select>
+            </div>
+            <div class="form-group">
+              <label for="expense-date">Date</label>
+              <input type="date" id="expense-date" name="date" required>
+            </div>
+            <div id="expense-form-error" class="form-error"></div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="expense-form-cancel">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-budgets" class="view">
+      <div class="view-toolbar">
+        <button type="button" class="btn btn-primary" id="add-budget-btn">Add Budget</button>
+      </div>
+      <div id="budgets-list" class="list-container"></div>
+      <div id="budget-form-modal" class="modal hidden">
+        <div class="modal-content">
+          <h3 id="budget-form-title">Add Budget</h3>
+          <form id="budget-form">
+            <input type="hidden" id="budget-id">
+            <div class="form-group">
+              <label for="budget-category">Category</label>
+              <select id="budget-category" name="category_id" required></select>
+            </div>
+            <div class="form-group">
+              <label for="budget-amount">Amount</label>
+              <input type="number" id="budget-amount" name="amount" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="budget-period">Period</label>
+              <select id="budget-period" name="period">
+                <option value="monthly">Monthly</option>
+                <option value="weekly">Weekly</option>
+              </select>
+            </div>
+            <div id="budget-form-error" class="form-error"></div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="budget-form-cancel">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-categories" class="view">
+      <div class="view-toolbar">
+        <button type="button" class="btn btn-primary" id="add-category-btn">Add Category</button>
+      </div>
+      <div id="categories-list" class="list-container"></div>
+      <div id="category-form-modal" class="modal hidden">
+        <div class="modal-content">
+          <h3 id="category-form-title">Add Category</h3>
+          <form id="category-form">
+            <input type="hidden" id="category-id">
+            <div class="form-group">
+              <label for="category-name">Name</label>
+              <input type="text" id="category-name" name="name" required placeholder="e.g. Food, Transport">
+            </div>
+            <div class="form-group">
+              <label for="category-icon">Icon</label>
+              <input type="text" id="category-icon" name="icon" placeholder="e.g. 🍔" maxlength="2">
+            </div>
+            <div class="form-group">
+              <label for="category-color">Color</label>
+              <input type="color" id="category-color" name="color" value="#4f46e5">
+            </div>
+            <div id="category-form-error" class="form-error"></div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="category-form-cancel">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <script src="js/app.js" type="module"></script>
+  <script src="js/auth.js" type="module"></script>
+  <script src="js/dashboard.js" type="module"></script>
+  <script src="js/expenses.js" type="module"></script>
+  <script src="js/budgets.js" type="module"></script>
+  <script src="js/categories.js" type="module"></script>
+</body>
+</html>
