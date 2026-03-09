@@ -1,0 +1,8 @@
+src/
+├── config/         # Database connection & Environment variables
+├── controllers/    # Request handling (MVC: C)
+├── models/         # Database schemas/Entity definitions (MVC: M)
+├── services/       # Business logic (Calculation, Bank Sync)
+├── routes/         # Express Route definitions
+├── middlewares/    # Auth, Error handling, Validation
+└── index.ts        # Entry point of the application

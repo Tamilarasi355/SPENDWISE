@@ -1,0 +1,12 @@
+import { Request, Response } from 'express';
+import * as TransactionService from '../services/transactionService';
+
+export const createTransaction = async (req: Request, res: Response) => {
+  try {
+    const data = req.body; // { amount: 5000, category: 'Food', userId: '123' }
+    const transaction = await TransactionService.addTransaction(data);
+    res.status(201).json(transaction);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to create transaction" });
+  }
+};

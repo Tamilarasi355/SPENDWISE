@@ -1,0 +1,12 @@
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+export const addTransaction = async (data: any) => {
+  // Logic: Ensure amount is stored in cents to avoid decimal math errors
+  const processedData = {
+    ...data,
+    amount: Math.round(data.amount * 100), 
+  };
+  
+  return await prisma.transaction.create({ data: processedData });
+};
