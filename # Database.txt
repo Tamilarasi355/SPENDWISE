@@ -1,0 +1,9 @@
+# Database
+DATABASE_URL="postgresql://johndoe:mypassword@localhost:5432/spendwise"
+
+# API
+PORT=3000
+JWT_SECRET="super-secret-spendwise-key"
+
+# External APIs
+PLAID_CLIENT_ID="your_plaid_id"

@@ -1,0 +1,2 @@
+mkdir spendwise && cd spendwise
+npm init -y

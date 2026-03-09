@@ -1,0 +1,18 @@
+spendwise/
+├── apps/
+│   ├── api/                # Backend (Node.js/Express/NestJS)
+│   │   ├── src/
+│   │   │   ├── controllers/ # MVC: Request handling
+│   │   │   ├── models/      # MVC: Database schemas/logic
+│   │   │   ├── services/    # Business logic (e.g., Plaid integration)
+│   │   │   └── routes/      # API Endpoints
+│   └── mobile/             # Frontend (React Native)
+│       ├── src/
+│       │   ├── components/  # Reusable UI atoms
+│       │   ├── screens/     # Dashboard, Login, etc.
+│       │   └── store/       # State management (Redux/Context)
+├── packages/
+│   ├── database/           # Prisma/TypeORM migrations and seed scripts
+│   └── config/             # Shared ESLint, Prettier, and TS configs
+├── infrastructure/         # Docker, Terraform, or K8s manifests
+└── .env.example            # Template for environment variables

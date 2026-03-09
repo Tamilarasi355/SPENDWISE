@@ -1,0 +1,3 @@
+git init
+touch .gitignore
+echo "node_modules\n.env\ndist\n.expo" > .gitignore

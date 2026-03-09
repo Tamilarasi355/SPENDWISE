@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const connectDB = async (): Promise<void> => {
+  try {
+    // Optimization: Connection pooling is handled automatically by Mongoose
+    const conn = await mongoose.connect(process.env.MONGO_URI as string, {
+      autoIndex: true, // Builds indexes defined in schemas
+    });
+
+    console.log(`✅ SpendWise Database Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`❌ Database Connection Error: ${(error as Error).message}`);
+    // Exit process if the DB is down - the app cannot function without it
+    process.exit(1);
+  }
+};
+
+// Monitor connection events for better debugging
+mongoose.connection.on('disconnected', () => {
+  console.warn('⚠️ MongoDB disconnected. Attempting to reconnect...');
+});
+
+export default connectDB;

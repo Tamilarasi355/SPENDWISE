@@ -1,0 +1,8 @@
+{
+  "name": "spendwise-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

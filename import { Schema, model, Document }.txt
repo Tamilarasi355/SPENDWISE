@@ -1,0 +1,24 @@
+import { Schema, model, Document } from 'mongoose';
+
+interface ITransaction extends Document {
+  user: Schema.Types.ObjectId;
+  amount: number; // Stored as integer (cents)
+  category: string;
+  merchantName: string;
+  date: Date;
+  isRecurring: boolean;
+}
+
+const transactionSchema = new Schema<ITransaction>({
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  amount: { type: Number, required: true },
+  category: { type: String, required: true, default: 'Uncategorized' },
+  merchantName: { type: String, trim: true },
+  date: { type: Date, default: Date.now },
+  isRecurring: { type: Boolean, default: false }
+}, { timestamps: true });
+
+// Indexing for performance: Fast lookups for a user's transactions by date
+transactionSchema.index({ user: 1, date: -1 });
+
+export default model<ITransaction>('Transaction', transactionSchema);

@@ -1,0 +1,7 @@
+model Transaction {
+  id        String   @id @default(uuid())
+  amount    Int      // Stored in cents
+  category  String
+  date      DateTime @default(now())
+  userId    String
+}

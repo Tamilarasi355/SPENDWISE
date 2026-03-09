@@ -1,0 +1,4 @@
+PORT=3000
+DATABASE_URL="postgresql://localhost:5432/spendwise"
+JWT_SECRET="your_secret_key_here"
+PLAID_CLIENT_ID="provided_by_plaid"

@@ -1,0 +1,2 @@
+npm install express cors dotenv pg
+npm install -D typescript @types/node @types/express ts-node-dev

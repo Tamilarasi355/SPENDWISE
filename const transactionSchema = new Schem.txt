@@ -1,0 +1,19 @@
+const transactionSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
+  amount: { type: Number, required: true }, // Negative for expense, positive for income
+  category: { 
+    type: String, 
+    required: true, 
+    index: true // Indexed for fast filtering in reports
+  },
+  merchantName: { type: String },
+  date: { type: Date, default: Date.now },
+  note: { type: String },
+  isPending: { type: Boolean, default: false }
+}, { timestamps: true });
+
+// Compound index: Fast lookup for a user's transactions within a date range
+transactionSchema.index({ user: 1, date: -1 });
+
+export default model('Transaction', transactionSchema);

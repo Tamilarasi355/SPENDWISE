@@ -1,0 +1,13 @@
+const accountSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  name: { type: String, required: true }, // e.g., "Chase Checking"
+  type: { 
+    type: String, 
+    enum: ['checking', 'savings', 'credit', 'cash'], 
+    required: true 
+  },
+  balance: { type: Number, default: 0 }, // Stored in cents
+  institution: { type: String }, // For Plaid integration
+}, { timestamps: true });
+
+export default model('Account', accountSchema);

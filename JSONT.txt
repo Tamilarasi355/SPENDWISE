@@ -1,0 +1,18 @@
+{
+  "name": "spendwise-project",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:mobile": "npm run start --workspace=apps/mobile",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:mobile\"",
+    "db:generate": "npm run generate --workspace=packages/database"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
